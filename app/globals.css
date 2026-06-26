@@ -1,0 +1,225 @@
+@import "tailwindcss";
+
+:root {
+  /* === Majestic Fragrance Design Tokens === */
+  /* Background layers */
+  --bg-void: #080808;
+  --bg-surface: #0f0f11;
+  --bg-surface-raised: #151518;
+  --bg-glass: rgba(20, 20, 24, 0.55);
+
+  /* Brand gradient — purple to magenta, warmed down from neon for luxury read */
+  --brand-purple: #9333ea;
+  --brand-purple-soft: #a855f7;
+  --brand-magenta: #d946c5;
+  --brand-magenta-soft: #e879f9;
+
+  /* Gold — warm metal, not highlighter yellow */
+  --gold: #d4af6a;
+  --gold-bright: #e8c989;
+  --gold-dim: #8a6f3f;
+
+  /* Text */
+  --text-primary: #f7f5f2;
+  --text-muted: #9b9b9f;
+  --text-faint: #5e5e63;
+
+  /* Utility */
+  --success: #00d26a;
+  --border-hairline: rgba(255, 255, 255, 0.08);
+  --border-gold: rgba(212, 175, 106, 0.35);
+}
+
+@theme inline {
+  --color-void: var(--bg-void);
+  --color-surface: var(--bg-surface);
+  --color-surface-raised: var(--bg-surface-raised);
+
+  --color-purple: var(--brand-purple);
+  --color-purple-soft: var(--brand-purple-soft);
+  --color-magenta: var(--brand-magenta);
+  --color-magenta-soft: var(--brand-magenta-soft);
+
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-gold-dim: var(--gold-dim);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+
+  --color-success: var(--success);
+
+  --font-display: "Cormorant Garamond", serif;
+  --font-body: "Manrope", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: "Manrope", Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--brand-magenta);
+  color: #fff;
+}
+
+/* Custom scrollbar — quiet, not flashy */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-void);
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2e;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-dim);
+}
+
+/* Visible keyboard focus — accessibility floor */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === Reusable design primitives === */
+
+.font-display {
+  font-family: "Cormorant Garamond", serif;
+}
+
+.text-gradient-brand {
+  background: linear-gradient(120deg, var(--brand-purple-soft), var(--brand-magenta-soft));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(120deg, var(--gold-dim), var(--gold-bright), var(--gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glass-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-hairline);
+}
+
+.hairline {
+  border-color: var(--border-hairline);
+}
+
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* Eyebrow label — small caps tracking, used sparingly */
+.eyebrow {
+  font-family: "Manrope", sans-serif;
+  font-size: 0.6875rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+/* Engraved-line crown watermark motif — signature element, used once per section max */
+.watermark-crown {
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+/* Magnetic-feel button base */
+.btn-primary {
+  background: linear-gradient(120deg, var(--brand-purple), var(--brand-magenta));
+  color: #fff;
+  font-family: "Manrope", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -8px rgba(217, 70, 197, 0.45);
+}
+
+.btn-outline-gold {
+  border: 1px solid var(--border-gold);
+  color: var(--text-primary);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.btn-outline-gold:hover {
+  border-color: var(--gold);
+  background: rgba(212, 175, 106, 0.08);
+}
+
+/* Shimmer sweep — used once, deliberately, not everywhere */
+@keyframes shimmer-sweep {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(212, 175, 106, 0.25) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-sweep 3.5s ease-in-out infinite;
+}
+
+/* Number ticker tabular alignment for prices */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Shared text input styling for checkout/forms */
+.input-field {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-void);
+  padding: 0.7rem 1rem;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  transition: border-color 0.2s ease;
+}
+.input-field::placeholder {
+  color: var(--text-faint);
+}
+.input-field:focus {
+  outline: none;
+  border-color: var(--gold);
+}
